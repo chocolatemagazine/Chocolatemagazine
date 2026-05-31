@@ -1,16 +1,43 @@
-## Hi there 👋
+# 🌟 The Wednesday Weekly
 
-<!--
-**chocolatemagazine/Chocolatemagazine** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+> *A free knowledge magazine for curious minds — real news, deep science, inspiring people & fun.*
 
-Here are some ideas to get you started:
+Made by **Chocolate**,  Published every two weeks.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+---
+
+## 📰 What's Inside Each Issue
+
+| Section | What You Get |
+|---|---|
+| 🌍 World News | 8 real stories explained simply |
+| 🔬 Science Deep Dive | One big topic explained properly |
+| ⭐ Personality of the Week | One inspiring person's full story |
+| 🎉 Fun Zone | Facts, recipe & jokes |
+| 🎬 Entertainment | Watch, play, read & quiz |
+
+---
+
+## 🔗 Read the Latest Issue
+
+👉 **[Open The Wednesday Weekly](https://yourusername.github.io/magazine)**
+
+---
+
+## 📅 Publishing Schedule
+
+- 🌟 **Wednesday Weekly** — every two weeks
+
+
+---
+
+## 🍫 About
+
+Built by a  using AI to research real news and generate
+a full magazine automatically. Each issue covers world events,
+science breakthroughs, inspiring personalities, fun facts and entertainment
+— written for ages 11–13 but enjoyed by everyone.
+
+---
+
+*Made with 🍫 by Chocolate · The Wednesday Weekly*
