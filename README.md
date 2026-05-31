@@ -20,8 +20,8 @@ Made by **Chocolate**,  Published every two weeks.
 
 ## 🔗 Read the Latest Issue
 
-👉 **[Open The Wednesday Weekly](https://yourusername.github.io/magazine)**
-
+👉 ****
+https://chocolatemagazine.github.io/Chocolatemagazine/
 ---
 
 ## 📅 Publishing Schedule
