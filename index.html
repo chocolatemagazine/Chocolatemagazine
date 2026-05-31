@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Wednesday Weekly 🌟</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --y:#FFD600;--o:#FF6B00;--r:#FF2D55;--g:#00C896;
+  --b:#0099FF;--pk:#FF3CAC;--pu:#7C3AED;
+  --ink:#111;--white:#fff;--off:#FFFDF7;--muted:#777;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink);overflow-x:hidden;cursor:none;}
+#cur{position:fixed;width:13px;height:13px;border-radius:50%;background:var(--y);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;transition:transform .1s,background .15s;}
+#cur.big{transform:translate(-50%,-50%) scale(3.5);background:var(--pk);}
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--y),var(--o),var(--r),var(--pk));z-index:9000;width:0%;transition:width .08s linear;}
+#nav{position:fixed;top:3px;left:0;right:0;z-index:8000;background:rgba(17,17,17,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,214,0,.15);}
+.nav-inner{max-width:780px;margin:0 auto;padding:.55rem 1.4rem;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:var(--y);}
+.nav-links{display:flex;gap:1.1rem;}
+.nav-links a{font-family:'Space Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .18s;}
+.nav-links a:hover{color:var(--y);}
+#btt{position:fixed;bottom:1.8rem;right:1.5rem;background:var(--y);color:var(--ink);border:none;border-radius:50%;width:40px;height:40px;font-size:.9rem;font-weight:700;cursor:pointer;z-index:8000;box-shadow:0 4px 18px rgba(255,214,0,.35);opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;}
+#btt.show{opacity:1;transform:translateY(0);}
+.mag{max-width:780px;margin:0 auto;padding:0 1.2rem;}
+.sec-div{height:3px;background:linear-gradient(90deg,transparent,var(--y),var(--o),transparent);margin:0 -1.2rem;opacity:.4;}
+.cover{background:var(--ink);min-height:88vh;display:flex;flex-direction:column;justify-content:flex-end;padding:2.4rem 2.2rem 3rem;position:relative;overflow:hidden;margin:0 -1.2rem;}
+.cover-orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(70px);}
+.cover-orb1{width:380px;height:380px;background:#FF6B0033;top:-80px;right:-60px;}
+.cover-orb2{width:260px;height:260px;background:#FFD60022;bottom:40px;left:-40px;}
+.cover-orb3{width:200px;height:200px;background:#FF3CAC18;top:35%;left:38%;}
+.cover-series{display:inline-flex;align-items:center;gap:.5rem;background:var(--y);color:var(--ink);border-radius:999px;padding:.28rem .9rem;font-family:'Space Mono',monospace;font-size:.58rem;font-weight:700;letter-spacing:.1em;margin-bottom:1.1rem;width:fit-content;}
+.cover-issue{font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.18em;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:.5rem;}
+.cover-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.8rem,13vw,6.5rem);line-height:.88;color:var(--white);letter-spacing:.02em;}
+.cover-title span{color:var(--y);}
+.cover-sub{margin-top:.9rem;font-size:.9rem;color:rgba(255,255,255,.55);max-width:360px;line-height:1.6;font-style:italic;}
+.cover-meta{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.8rem;font-family:'Space Mono',monospace;font-size:.62rem;color:rgba(255,255,255,.38);letter-spacing:.06em;}
+.cover-scroll{position:absolute;right:2rem;bottom:2rem;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;writing-mode:vertical-rl;display:flex;align-items:center;gap:.5rem;animation:float 2.5s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
+.ticker-wrap{background:var(--ink);overflow:hidden;padding:.42rem 0;margin:0 -1.2rem;}
+.ticker-inner{display:flex;animation:tick 35s linear infinite;white-space:nowrap;}
+.ticker-inner span{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--y);padding:0 2.2rem;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.sec-header{padding:2.2rem 0 1.2rem;}
+.sec-kicker{font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.4rem;}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,6vw,2.6rem);letter-spacing:.03em;line-height:1;}
+.sec-sub{font-size:.82rem;margin-top:.4rem;font-style:italic;opacity:.55;max-width:380px;line-height:1.5;}
+.news-grid{display:flex;flex-direction:column;gap:.85rem;padding-bottom:2.5rem;}
+.nc{background:var(--white);border-radius:16px;padding:1.1rem 1.2rem 1.1rem 1.4rem;border:1.5px solid #EBEBEB;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;}
+.nc:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.08);}
+.nc-bar{position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;}
+.nc-top{display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem;}
+.nc-cat{font-family:'Space Mono',monospace;font-size:.53rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .55rem;border-radius:999px;}
+.nc-date{font-family:'Space Mono',monospace;font-size:.52rem;color:#bbb;margin-left:auto;}
+.nc-headline{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--ink);line-height:1.28;margin-bottom:.4rem;}
+.nc-brief{font-size:.79rem;line-height:1.62;color:var(--muted);}
+.nc-link{display:inline-flex;align-items:center;gap:.3rem;margin-top:.6rem;font-family:'Space Mono',monospace;font-size:.58rem;font-weight:700;text-decoration:none;transition:gap .18s;}
+.nc-link:hover{gap:.6rem;}
+.sci-wrap{background:var(--white);border-radius:20px;border:1.5px solid #D4FFF2;overflow:hidden;margin-bottom:2.5rem;}
+.sci-top-band{background:var(--g);padding:1.1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;}
+.sci-band-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#fff;letter-spacing:.05em;}
+.sci-band-tag{font-family:'Space Mono',monospace;font-size:.55rem;color:rgba(255,255,255,.65);}
+.sci-body{padding:1.4rem 1.5rem;}
+.sci-kicker-inner{font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.18em;color:var(--g);text-transform:uppercase;margin-bottom:.5rem;}
+.sci-headline{font-family:'Fraunces',serif;font-size:clamp(1.4rem,4.5vw,1.9rem);font-weight:900;line-height:1.1;color:var(--ink);margin-bottom:.7rem;}
+.sci-headline em{font-style:italic;color:var(--g);}
+.sci-deck{font-size:.88rem;line-height:1.74;color:#333;border-left:4px solid var(--g);padding-left:1rem;margin-bottom:1.3rem;font-weight:500;}
+.sci-h3{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;color:var(--g);margin-bottom:.4rem;margin-top:1.1rem;}
+.sci-p{font-size:.83rem;line-height:1.75;color:#333;margin-bottom:.4rem;}
+.sci-callout{background:var(--g);color:#fff;border-radius:13px;padding:1rem 1.15rem;margin:1rem 0;}
+.sci-callout h4{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.05em;margin-bottom:.35rem;}
+.sci-callout p{font-size:.79rem;line-height:1.6;opacity:.92;}
+.sci-fact{display:flex;gap:.75rem;align-items:flex-start;background:#F0FFF8;border-radius:11px;padding:.82rem .95rem;margin-bottom:.6rem;border:1.5px solid #B2F5E0;}
+.sci-fact-icon{font-size:1.2rem;flex-shrink:0;}
+.sci-fact-txt{font-size:.79rem;line-height:1.56;color:#333;}
+.sci-fact-txt strong{color:var(--g);}
+.vocab-box{background:#F0FFF8;border-radius:13px;padding:1rem 1.15rem;margin-top:1rem;border:1.5px solid #B2F5E0;}
+.vocab-box h4{font-family:'Bebas Neue',sans-serif;font-size:.88rem;color:var(--g);letter-spacing:.05em;margin-bottom:.6rem;}
+.vocab-item{margin-bottom:.45rem;font-size:.78rem;color:#333;line-height:1.5;}
+.vocab-item strong{color:var(--ink);}
+.pers-wrap{background:linear-gradient(150deg,#FF3CAC,#784BA0,#2B86C5);border-radius:20px;overflow:hidden;margin-bottom:2.5rem;}
+.pers-top{padding:1.1rem 1.5rem;background:rgba(0,0,0,.15);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:space-between;}
+.pers-top-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#fff;letter-spacing:.05em;}
+.pers-body{padding:1.4rem 1.5rem 1.8rem;}
+.p-avatar{width:68px;height:68px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:2.1rem;margin-bottom:.9rem;border:3px solid rgba(255,255,255,.4);}
+.p-name{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;color:#fff;line-height:1.05;margin-bottom:.2rem;}
+.p-title{font-family:'Space Mono',monospace;font-size:.58rem;color:rgba(255,255,255,.55);letter-spacing:.1em;margin-bottom:.9rem;}
+.p-quote{font-family:'Fraunces',serif;font-style:italic;font-size:.95rem;line-height:1.58;color:#fff;background:rgba(255,255,255,.12);border-radius:12px;padding:.9rem 1rem;margin-bottom:1rem;}
+.p-facts{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.85rem;}
+.pf{background:rgba(255,255,255,.12);border-radius:11px;padding:.65rem .85rem;}
+.pf-lbl{font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:.18rem;}
+.pf-val{font-size:.81rem;font-weight:600;color:#fff;}
+.p-sec{background:rgba(255,255,255,.11);border-radius:12px;padding:.9rem 1rem;margin-bottom:.7rem;}
+.p-sec h4{font-family:'Bebas Neue',sans-serif;font-size:.92rem;color:var(--y);letter-spacing:.05em;margin-bottom:.38rem;}
+.p-sec p{font-size:.8rem;line-height:1.66;color:rgba(255,255,255,.88);}
+.p-lesson{background:var(--y);border-radius:12px;padding:.9rem 1rem;margin-top:.7rem;}
+.p-lesson h4{font-family:'Bebas Neue',sans-serif;font-size:.88rem;color:var(--ink);letter-spacing:.05em;margin-bottom:.3rem;}
+.p-lesson p{font-size:.78rem;line-height:1.56;color:var(--ink);opacity:.8;}
+.fun-wrap{margin-bottom:2.5rem;}
+.fun-band{background:var(--o);padding:1.1rem 1.5rem;border-radius:16px 16px 0 0;display:flex;align-items:center;justify-content:space-between;}
+.fun-band-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#fff;letter-spacing:.05em;}
+.fun-body{background:var(--white);border-radius:0 0 16px 16px;border:1.5px solid #FFE0B2;border-top:none;padding:1.4rem 1.5rem;}
+.sub-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;margin-bottom:.85rem;display:flex;align-items:center;gap:.6rem;}
+.sub-title::after{content:'';flex:1;height:1.5px;background:currentColor;opacity:.15;}
+.ff-list{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.6rem;}
+.ff{display:flex;gap:.85rem;align-items:flex-start;background:#FFFBF0;border-radius:12px;padding:.9rem 1rem;border:1.5px solid #FFE0B2;transition:transform .2s;}
+.ff:hover{transform:translateX(4px);}
+.ff-num{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--o);min-width:26px;line-height:1;}
+.ff-txt{font-size:.8rem;line-height:1.62;color:#333;}
+.ff-txt strong{color:var(--o);}
+.recipe-box{background:#FFFBF0;border-radius:14px;padding:1.2rem 1.3rem;margin-bottom:1.6rem;border:1.5px solid #FFE0B2;}
+.recipe-box h3{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:.2rem;}
+.recipe-sub{font-size:.7rem;color:var(--muted);font-style:italic;margin-bottom:.9rem;}
+.r-step{display:flex;gap:.7rem;align-items:flex-start;margin-bottom:.6rem;padding:.6rem .7rem;border-radius:9px;background:#fff;border:1.5px solid #FFE0B2;}
+.r-n{background:var(--o);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:.62rem;font-weight:700;flex-shrink:0;margin-top:.1rem;}
+.r-t{font-size:.79rem;line-height:1.52;color:#333;}
+.joke-box{background:var(--y);border-radius:14px;padding:1.2rem 1.3rem;text-align:center;}
+.joke-box h3{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--ink);letter-spacing:.05em;margin-bottom:.75rem;}
+.j-setup{font-size:.9rem;line-height:1.6;color:var(--ink);font-style:italic;min-height:42px;}
+.j-punch{font-size:.84rem;color:var(--o);font-weight:700;margin-top:.5rem;display:none;}
+.j-btn{margin-top:.85rem;background:var(--ink);color:var(--y);border:none;border-radius:999px;padding:.48rem 1.05rem;font-family:'Space Mono',monospace;font-size:.65rem;font-weight:700;cursor:pointer;transition:transform .15s;margin-right:.38rem;}
+.j-btn:hover{transform:scale(1.06);}
+.ent-wrap{margin-bottom:2.5rem;}
+.ent-band{background:var(--pk);padding:1.1rem 1.5rem;border-radius:16px 16px 0 0;display:flex;align-items:center;justify-content:space-between;}
+.ent-band-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#fff;letter-spacing:.05em;}
+.ent-body{background:#0A0A0A;border-radius:0 0 16px 16px;padding:1.4rem 1.5rem;}
+.ent-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.ec{border-radius:14px;padding:1rem;border:1.5px solid rgba(255,255,255,.07);transition:transform .2s;}
+.ec:hover{transform:translateY(-3px);}
+.ec0{background:linear-gradient(135deg,#1a0030,#3d0060);}
+.ec1{background:linear-gradient(135deg,#001530,#003060);}
+.ec2{background:linear-gradient(135deg,#1a1a00,#3d3a00);}
+.ec3{background:linear-gradient(135deg,#200010,#500030);}
+.ec-em{font-size:1.4rem;margin-bottom:.45rem;display:block;}
+.ec-cat{font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;opacity:.4;color:#fff;margin-bottom:.22rem;}
+.ec-title{font-family:'Fraunces',serif;font-size:.9rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:.28rem;}
+.ec-body{font-size:.7rem;line-height:1.5;color:rgba(255,255,255,.6);}
+.ec-tag{display:inline-block;margin-top:.4rem;background:rgba(255,255,255,.09);color:rgba(255,255,255,.6);border-radius:999px;padding:.14rem .5rem;font-size:.55rem;font-family:'Space Mono',monospace;}
+.quiz-wrap{background:#111;border-radius:14px;padding:1.3rem;margin-top:1.2rem;border:1.5px solid rgba(255,60,172,.2);}
+.quiz-wrap h3{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--pk);letter-spacing:.05em;margin-bottom:.3rem;}
+.q-ctr{font-family:'Space Mono',monospace;font-size:.58rem;color:rgba(255,60,172,.6);margin-bottom:.5rem;}
+.q-prog{height:3px;background:rgba(255,255,255,.07);border-radius:999px;margin-bottom:.9rem;overflow:hidden;}
+.q-pbar{height:100%;background:linear-gradient(90deg,var(--pk),var(--y));border-radius:999px;transition:width .4s;}
+.q-txt{font-size:.86rem;font-weight:600;color:#fff;margin-bottom:.75rem;line-height:1.45;}
+.q-opts{display:flex;flex-direction:column;gap:.45rem;}
+.qo{text-align:left;padding:.58rem .85rem;border-radius:10px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);font-family:'DM Sans',sans-serif;font-size:.79rem;cursor:pointer;transition:all .18s;color:#ccc;}
+.qo:hover:not(:disabled){border-color:var(--pk);background:rgba(255,60,172,.12);}
+.qo.correct{border-color:var(--g);background:rgba(0,200,150,.12);color:var(--g);font-weight:700;}
+.qo.wrong{border-color:var(--r);background:rgba(255,45,85,.1);color:#FF6B6B;}
+.q-fb{margin-top:.6rem;font-size:.76rem;font-weight:600;min-height:16px;}
+.q-next-btn{margin-top:.8rem;background:var(--pk);color:#fff;border:none;border-radius:999px;padding:.52rem 1.15rem;font-family:'Space Mono',monospace;font-size:.66rem;font-weight:700;cursor:pointer;display:none;transition:transform .15s;}
+.q-next-btn:hover{transform:scale(1.04);}
+.q-done{display:none;text-align:center;padding:.9rem 0;}
+.q-score-big{font-family:'Bebas Neue',sans-serif;font-size:3.2rem;color:var(--y);}
+.q-score-msg{color:#555;font-size:.85rem;margin-top:.35rem;}
+.pl-wrap{background:#111;border-radius:14px;padding:1.2rem 1.3rem;margin-top:1.2rem;border:1.5px solid rgba(255,255,255,.07);}
+.pl-wrap h3{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--pk);letter-spacing:.05em;margin-bottom:.15rem;}
+.pl-sub{font-family:'Space Mono',monospace;font-size:.55rem;color:rgba(255,255,255,.28);margin-bottom:.9rem;}
+.track{display:flex;align-items:center;gap:.85rem;padding:.62rem .55rem;border-radius:11px;cursor:pointer;transition:all .18s;border:1px solid transparent;}
+.track:hover{background:rgba(255,255,255,.05);border-color:rgba(255,60,172,.25);}
+.track.on{background:rgba(255,60,172,.1);border-color:rgba(255,60,172,.4);}
+.t-n{font-family:'Space Mono',monospace;font-size:.55rem;color:#3a3a3a;min-width:14px;}
+.t-art{width:35px;height:35px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;background:linear-gradient(135deg,#300010,#600030);}
+.t-info{flex:1;}
+.t-name{font-size:.81rem;font-weight:600;color:#fff;}
+.t-artist{font-size:.67rem;color:#444;margin-top:.08rem;}
+.t-dur{font-family:'Space Mono',monospace;font-size:.58rem;color:#2a2a2a;}
+.eq{display:none;align-items:center;gap:2px;}
+.track.on .eq{display:flex;}
+.eq span{width:2.5px;border-radius:3px;background:var(--pk);animation:eqa .75s ease-in-out infinite alternate;}
+.eq span:nth-child(1){height:6px;} .eq span:nth-child(2){height:12px;animation-delay:.15s;} .eq span:nth-child(3){height:8px;animation-delay:.3s;}
+@keyframes eqa{to{height:2px;}}
+.wild-wrap{margin-bottom:2.5rem;background:linear-gradient(135deg,#7C3AED,#2B86C5);border-radius:18px;padding:1.4rem 1.5rem;}
+.wild-wrap h3{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:.5rem;}
+.wild-kicker{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.6rem;}
+.wild-wrap p{font-size:.84rem;line-height:1.7;color:rgba(255,255,255,.9);}
+.footer{background:var(--ink);color:rgba(255,255,255,.4);text-align:center;padding:2.5rem 1.5rem 2rem;margin:0 -1.2rem;margin-top:1rem;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--y);letter-spacing:.05em;}
+.footer-sub{font-size:.75rem;margin:.4rem 0 1.4rem;font-style:italic;}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:1.2rem;margin-bottom:1.2rem;}
+.footer-links a{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.12em;color:rgba(255,255,255,.35);text-decoration:none;text-transform:uppercase;transition:color .18s;}
+.footer-links a:hover{color:var(--y);}
+.footer-copy{font-family:'Space Mono',monospace;font-size:.58rem;opacity:.25;}
+.share-row{display:flex;justify-content:center;gap:.7rem;margin-bottom:1.4rem;}
+.sh-btn{background:rgba(255,255,255,.07);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:.42rem .95rem;font-family:'Space Mono',monospace;font-size:.62rem;cursor:pointer;transition:background .18s;}
+.sh-btn:hover{background:rgba(255,214,0,.12);color:var(--y);}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+#loading{position:fixed;inset:0;background:var(--ink);z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;}
+#loading .spin{font-size:2.5rem;animation:spin 1.5s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+#loading p{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--y);letter-spacing:.1em;}
+#err{display:none;padding:2rem;text-align:center;color:var(--r);font-size:.85rem;line-height:1.6;}
+@media(max-width:480px){.ent-grid,.p-facts{grid-template-columns:1fr 1fr;}.cover-title{font-size:3.5rem;}.nav-links{gap:.7rem;}}
+</style>
+</head>
+<body>
+
+<div id="loading"><div class="spin">🌟</div><p>Loading this week's issue…</p></div>
+<div id="cur"></div>
+<div id="prog"></div>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo" id="nav-logo">🌟 Wednesday Weekly</div>
+    <div class="nav-links">
+      <a href="#news">News</a><a href="#science">Science</a>
+      <a href="#personality">Person</a><a href="#fun">Fun</a><a href="#ent">Ent</a>
+    </div>
+  </div>
+</nav>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="mag" id="mag" style="padding-top:46px;">
+  <div id="err"></div>
+  <!-- All content is injected here from issue-data.json -->
+</div>
+
+<script>
+/* ============================================================
+   THE WEDNESDAY WEEKLY — DATA-DRIVEN TEMPLATE
+   This file NEVER changes. It loads issue-data.json and builds
+   the magazine. To publish a new issue, just replace the JSON.
+   ============================================================ */
+
+const catColors = {
+  red:{bar:'#FF2D55',chip:'#FFE0E0;color:#FF2D55',link:'#FF2D55'},
+  blue:{bar:'#0099FF',chip:'#E0F0FF;color:#0099FF',link:'#0099FF'},
+  green:{bar:'#00C896',chip:'#D4FFF2;color:#00A876',link:'#00A876'},
+  orange:{bar:'#FF6B00',chip:'#FFF0E0;color:#FF6B00',link:'#FF6B00'},
+  purple:{bar:'#7C3AED',chip:'#F3E8FF;color:#7C3AED',link:'#7C3AED'},
+  india:{bar:'#FF9933',chip:'#FFF3E0;color:#FF6D00',link:'#FF6D00'}
+};
+
+function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function buildMagazine(D){
+  const mag=document.getElementById('mag');
+  document.title=`${D.meta.title} ${D.meta.emoji||''} ${D.meta.issueLabel||''}`;
+  document.getElementById('nav-logo').innerHTML=`${D.meta.emoji||'🌟'} ${esc(D.meta.title)}`;
+
+  let html='';
+
+  /* COVER */
+  html+=`<div class="cover" id="cover">
+    <div class="cover-orb cover-orb1"></div><div class="cover-orb cover-orb2"></div><div class="cover-orb cover-orb3"></div>
+    <div class="cover-series">✦ ${esc(D.meta.seriesLine||'Chocolates Magazine Series')}</div>
+    <div class="cover-issue">✦ ${esc(D.meta.cadence||'every two weeks')} ✦</div>
+    <div class="cover-title">${D.meta.titleHTML||('THE<br><span>WEDNESDAY</span><br>WEEKLY')}</div>
+    <div class="cover-sub">${esc(D.meta.tagline||'')}</div>
+    <div class="cover-meta">
+      <span>📅 ${esc(D.meta.date||'')}</span>
+      <span>✍️ ${esc(D.meta.editor||'Chocolate')}</span>
+      <span>${esc(D.meta.issueLabel||'')}</span>
+      <span>🌍 ${esc(D.meta.edition||'World Edition')}</span>
+    </div>
+    <div class="cover-scroll">scroll ↓</div>
+  </div>`;
+
+  /* TICKER */
+  const tickItems=(D.news||[]).map(n=>`<span>${esc(n.tickerText||n.headline)}</span>`).join('');
+  html+=`<div class="ticker-wrap"><div class="ticker-inner">${tickItems}${tickItems}</div></div>`;
+
+  /* NEWS */
+  html+=`<section id="news"><div class="sec-header reveal">
+    <div class="sec-kicker" style="color:#FF6B00">📰 ${esc(D.newsMeta?.kicker||'What happened recently')}</div>
+    <div class="sec-title">${esc(D.newsMeta?.title||'WORLD NEWS')}</div>
+    <div class="sec-sub">${esc(D.newsMeta?.sub||'')}</div>
+  </div><div class="news-grid">`;
+  (D.news||[]).forEach(n=>{
+    const c=catColors[n.color]||catColors.blue;
+    html+=`<div class="nc reveal">
+      <div class="nc-bar" style="background:${c.bar}"></div>
+      <div class="nc-top"><span class="nc-cat" style="background:${c.chip}">${esc(n.category)}</span><span class="nc-date">${esc(n.date)}</span></div>
+      <div class="nc-headline">${esc(n.headline)}</div>
+      <div class="nc-brief">${esc(n.brief)}</div>
+      ${n.link?`<a class="nc-link" style="color:${c.link}" href="${esc(n.link)}" target="_blank">${esc(n.linkText||'Read full story')} →</a>`:''}
+    </div>`;
+  });
+  html+=`</div></section><div class="sec-div"></div>`;
+
+  /* SCIENCE */
+  const S=D.science||{};
+  html+=`<section id="science" style="padding:2.2rem 0 0;"><div class="sec-header reveal">
+    <div class="sec-kicker" style="color:#00C896">🔬 ${esc(S.kicker||'Deep knowledge')}</div>
+    <div class="sec-title">SCIENCE DEEP DIVE</div>
+    <div class="sec-sub">${esc(S.sub||'The topic every curious mind should understand')}</div>
+  </div><div class="sci-wrap reveal">
+    <div class="sci-top-band"><div class="sci-band-title">${esc(S.bandTitle||S.topic||'')}</div><div class="sci-band-tag">${esc(S.readTime||'~4 min read')}</div></div>
+    <div class="sci-body">
+      <div class="sci-kicker-inner">📚 ${esc(S.innerKicker||'What every 8th grader must know')}</div>
+      <div class="sci-headline">${S.headlineHTML||esc(S.headline||'')}</div>
+      <div class="sci-deck">${esc(S.deck||'')}</div>`;
+  (S.sections||[]).forEach(sec=>{
+    html+=`<div class="sci-h3">${esc(sec.h)}</div><div class="sci-p">${sec.pHTML||esc(sec.p)}</div>`;
+  });
+  if(S.callout) html+=`<div class="sci-callout"><h4>${esc(S.callout.h)}</h4><p>${esc(S.callout.p)}</p></div>`;
+  (S.facts||[]).forEach(f=>{
+    html+=`<div class="sci-fact"><div class="sci-fact-icon">${esc(f.icon)}</div><div class="sci-fact-txt">${f.textHTML||esc(f.text)}</div></div>`;
+  });
+  if(S.vocab&&S.vocab.length){
+    html+=`<div class="vocab-box"><h4>📖 Vocab to Know</h4>`;
+    S.vocab.forEach(v=>html+=`<div class="vocab-item"><strong>${esc(v.term)}:</strong> ${esc(v.def)}</div>`);
+    html+=`</div>`;
+  }
+  html+=`</div></div></section><div class="sec-div"></div>`;
+
+  /* PERSONALITY */
+  const P=D.personality||{};
+  html+=`<section id="personality" style="padding:2.2rem 0 0;"><div class="sec-header reveal">
+    <div class="sec-kicker" style="color:#FF3CAC">⭐ inspiration for curious minds</div>
+    <div class="sec-title">PERSONALITY OF THE WEEK</div>
+    <div class="sec-sub">One person. Their full story. What you can learn from them.</div>
+  </div><div class="pers-wrap reveal">
+    <div class="pers-top"><div class="pers-top-title">${esc(P.avatar||'⭐')} ${esc(P.name)} · ${esc(P.tagline||'')}</div></div>
+    <div class="pers-body">
+      <div class="p-avatar">${esc(P.avatar||'⭐')}</div>
+      <div class="p-name">${esc(P.name)}</div>
+      <div class="p-title">${esc(P.role||'')}</div>
+      <div class="p-quote">${esc(P.quote||'')}</div>
+      <div class="p-facts">`;
+  (P.facts||[]).forEach(f=>html+=`<div class="pf"><div class="pf-lbl">${esc(f.label)}</div><div class="pf-val">${esc(f.value)}</div></div>`);
+  html+=`</div>`;
+  (P.sections||[]).forEach(sec=>html+=`<div class="p-sec"><h4>${esc(sec.h)}</h4><p>${sec.pHTML||esc(sec.p)}</p></div>`);
+  if(P.lesson) html+=`<div class="p-lesson"><h4>${esc(P.lesson.h||'📚 The Takeaway')}</h4><p>${P.lesson.pHTML||esc(P.lesson.p)}</p></div>`;
+  html+=`</div></div></section><div class="sec-div"></div>`;
+
+  /* WILDCARD (optional rotating section) */
+  if(D.wildcard){
+    html+=`<section style="padding:2.2rem 0 0;"><div class="wild-wrap reveal">
+      <div class="wild-kicker">🎲 ${esc(D.wildcard.kicker||'Wildcard of the Week')}</div>
+      <h3>${esc(D.wildcard.title)}</h3>
+      <p>${D.wildcard.bodyHTML||esc(D.wildcard.body)}</p>
+    </div></section><div class="sec-div"></div>`;
+  }
+
+  /* FUN ZONE */
+  const F=D.fun||{};
+  html+=`<section id="fun" style="padding:2.2rem 0 0;"><div class="sec-header reveal">
+    <div class="sec-kicker" style="color:#FF6B00">🎉 take a break · you deserve it</div>
+    <div class="sec-title">FUN ZONE</div>
+    <div class="sec-sub">Facts, recipe & laughs — your brain needs this too</div>
+  </div><div class="fun-wrap reveal">
+    <div class="fun-band"><div class="fun-band-title">🎉 Facts · Recipe · Jokes</div></div>
+    <div class="fun-body">
+      <div class="sub-title" style="color:#FF6B00;">🤯 ${(F.facts||[]).length} Mind-Blowing Facts</div>
+      <div class="ff-list">`;
+  (F.facts||[]).forEach((fact,i)=>{
+    html+=`<div class="ff"><div class="ff-num">${String(i+1).padStart(2,'0')}</div><div class="ff-txt">${fact.textHTML||esc(fact.text||fact)}</div></div>`;
+  });
+  html+=`</div>`;
+  if(F.recipe){
+    html+=`<div class="sub-title" style="color:#FF6B00;">🍳 Recipe of the Week</div>
+      <div class="recipe-box"><h3>${esc(F.recipe.name)}</h3><div class="recipe-sub">${esc(F.recipe.sub||'')}</div>`;
+    (F.recipe.steps||[]).forEach((s,i)=>html+=`<div class="r-step"><div class="r-n">${i+1}</div><div class="r-t">${s.textHTML||esc(s.text||s)}</div></div>`);
+    html+=`</div>`;
+  }
+  if(F.jokes&&F.jokes.length){
+    html+=`<div class="sub-title" style="color:#FF6B00;">😂 Joke of the Week</div>
+      <div class="joke-box"><h3>LOL Corner 😆</h3>
+      <div class="j-setup" id="jsetup">${esc(F.jokes[0].setup)}</div>
+      <div class="j-punch" id="jpunch">${esc(F.jokes[0].punch)}</div>
+      <button class="j-btn" onclick="revealJ()">🥁 Punchline!</button>
+      <button class="j-btn" onclick="nextJ()">Next Joke →</button></div>`;
+  }
+  html+=`</div></div></section><div class="sec-div"></div>`;
+
+  /* ENTERTAINMENT + QUIZ + PLAYLIST */
+  const E=D.entertainment||{};
+  html+=`<section id="ent" style="padding:2.2rem 0 0;"><div class="sec-header reveal">
+    <div class="sec-kicker" style="color:#FF3CAC">🎬 watch · play · listen · test yourself</div>
+    <div class="sec-title">ENTERTAINMENT + QUIZ</div>
+    <div class="sec-sub">What's good + test how much you've read</div>
+  </div><div class="ent-wrap reveal">
+    <div class="ent-band"><div class="ent-band-title">🎬 Watch, Play, Read & Listen</div></div>
+    <div class="ent-body">
+      <div class="sub-title" style="color:#FF3CAC;">🎬 This Issue's Picks</div>
+      <div class="ent-grid">`;
+  (E.picks||[]).forEach((p,i)=>{
+    html+=`<div class="ec ec${i%4}"><span class="ec-em">${esc(p.emoji)}</span><div class="ec-cat">${esc(p.category)}</div><div class="ec-title">${esc(p.title)}</div><div class="ec-body">${esc(p.body)}</div><span class="ec-tag">${esc(p.tag||'')}</span></div>`;
+  });
+  html+=`</div>
+      <div class="sub-title" style="color:#FF3CAC;">🧩 News Quiz — Did You Read?</div>
+      <div class="quiz-wrap">
+        <h3>Test Yourself! 🧠</h3>
+        <div class="q-ctr" id="qctr"></div>
+        <div class="q-prog"><div class="q-pbar" id="qpb"></div></div>
+        <div class="q-txt" id="qtxt"></div>
+        <div class="q-opts" id="qopts"></div>
+        <div class="q-fb" id="qfb"></div>
+        <button class="q-next-btn" id="qnb" onclick="nextQ()">Next →</button>
+        <div class="q-done" id="qdone"><div class="q-score-big" id="qsb"></div><div class="q-score-msg" id="qsm"></div>
+          <button class="q-next-btn" style="display:inline-block;margin-top:.75rem;" onclick="restartQ()">Play Again 🔄</button></div>
+      </div>
+      <div class="sub-title" style="color:#FF3CAC;margin-top:1.2rem;">🎵 This Issue's Playlist</div>
+      <div class="pl-wrap"><h3>🎵 ${esc(E.playlistTitle||'Weekly Picks')}</h3>
+        <div class="pl-sub">Tap a track to "play" · curated by ${esc(D.meta.editor||'Chocolate')} 🍫</div>
+        <div id="tracks"></div></div>
+    </div></div></section>`;
+
+  /* FOOTER */
+  html+=`<footer class="footer">
+    <div class="footer-logo">${esc(D.meta.title)} ${esc(D.meta.emoji||'🌟')}</div>
+    <div class="footer-sub">${esc(D.meta.footerLine||'Part of Chocolates Magazine Series')}</div>
+    <div class="share-row">
+      <button class="sh-btn" onclick="alert('Copy this file and share it! 🍫')">📋 Share Issue</button>
+      <button class="sh-btn" onclick="window.print()">🖨️ Print</button>
+      <button class="sh-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆️ Top</button>
+    </div>
+    <div class="footer-links"><a href="#news">News</a><a href="#science">Science</a><a href="#personality">Personality</a><a href="#fun">Fun</a><a href="#ent">Entertainment</a></div>
+    <div class="footer-copy">© 2026 ${esc(D.meta.title)} · ${esc(D.meta.issueLabel||'')} · Made with 🍫</div>
+  </footer>`;
+
+  document.getElementById('err').insertAdjacentHTML('afterend',html);
+
+  /* wire up interactive bits */
+  initReveal();
+  initQuiz(D.entertainment?.quiz||[]);
+  initPlaylist(D.entertainment?.playlist||[]);
+  initJokes(D.fun?.jokes||[]);
+  document.getElementById('loading').style.display='none';
+}
+
+/* CURSOR */
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+document.addEventListener('mouseover',e=>{if(e.target.closest('a,button,.nc,.ec,.track,.qo,.ff'))cur.classList.add('big');else cur.classList.remove('big');});
+
+/* PROGRESS + BTT */
+window.addEventListener('scroll',()=>{
+  const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+  document.getElementById('prog').style.width=pct+'%';
+  document.getElementById('btt').classList.toggle('show',window.scrollY>500);
+});
+
+/* REVEAL */
+function initReveal(){
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in');});},{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+}
+
+/* QUIZ */
+let QS=[],qi=0,sc=0,qa=false;
+function initQuiz(qs){QS=qs;qi=0;sc=0;if(QS.length)loadQ();}
+function loadQ(){
+  const q=QS[qi];
+  document.getElementById('qtxt').textContent=q.q;
+  document.getElementById('qctr').textContent=`Question ${qi+1} of ${QS.length}`;
+  document.getElementById('qpb').style.width=((qi+1)/QS.length*100)+'%';
+  document.getElementById('qfb').textContent='';
+  document.getElementById('qnb').style.display='none';
+  qa=false;
+  const el=document.getElementById('qopts');el.innerHTML='';
+  q.opts.forEach((o,i)=>{const b=document.createElement('button');b.className='qo';b.textContent=o;b.onclick=()=>ansQ(i,b);el.appendChild(b);});
+}
+function ansQ(i,b){
+  if(qa)return;qa=true;const q=QS[qi],fb=document.getElementById('qfb');
+  document.querySelectorAll('.qo').forEach(x=>x.disabled=true);
+  if(i===q.a){b.classList.add('correct');sc++;fb.textContent='✅ '+q.exp;fb.style.color='#00C896';}
+  else{b.classList.add('wrong');document.querySelectorAll('.qo')[q.a].classList.add('correct');fb.textContent='❌ '+q.exp;fb.style.color='#FF6B6B';}
+  document.getElementById('qnb').style.display='inline-block';
+}
+function nextQ(){qi++;if(qi>=QS.length){showScore();return;}loadQ();}
+function showScore(){
+  ['qopts','qtxt','qctr'].forEach(id=>document.getElementById(id).style.display='none');
+  document.querySelector('.q-prog').style.display='none';
+  document.getElementById('qfb').style.display='none';document.getElementById('qnb').style.display='none';
+  document.getElementById('qdone').style.display='block';
+  document.getElementById('qsb').textContent=sc+'/'+QS.length;
+  const m=['Re-read the issue! 📰','Getting there! 💪','Nice work! 🌟','Sharp! ⚡','PERFECT! 🏆'];
+  document.getElementById('qsm').textContent=m[sc]||m[m.length-1];
+}
+function restartQ(){
+  qi=0;sc=0;['qopts','qtxt','qctr'].forEach(id=>document.getElementById(id).style.display='');
+  document.querySelector('.q-prog').style.display='block';document.getElementById('qfb').style.display='block';
+  document.getElementById('qdone').style.display='none';loadQ();
+}
+
+/* PLAYLIST */
+let np=-1;
+function initPlaylist(tks){
+  const tel=document.getElementById('tracks');if(!tel)return;tel.innerHTML='';
+  tks.forEach((t,i)=>{
+    tel.innerHTML+=`<div class="track" id="tr${i}" onclick="playT(${i})">
+      <span class="t-n">${i+1}</span><div class="t-art">${esc(t.emoji||'🎵')}</div>
+      <div class="t-info"><div class="t-name">${esc(t.name)}</div><div class="t-artist">${esc(t.artist)}</div></div>
+      <div class="eq"><span></span><span></span><span></span></div>
+      <div class="t-dur">${esc(t.duration||'')}</div></div>`;
+  });
+}
+function playT(i){document.querySelectorAll('.track').forEach(t=>t.classList.remove('on'));if(np===i){np=-1;return;}document.getElementById('tr'+i).classList.add('on');np=i;}
+
+/* JOKES */
+let JK=[],ji=0;
+function initJokes(j){JK=j;ji=0;}
+function revealJ(){document.getElementById('jpunch').style.display='block';}
+function nextJ(){if(!JK.length)return;ji=(ji+1)%JK.length;document.getElementById('jsetup').textContent=JK[ji].setup;document.getElementById('jpunch').textContent=JK[ji].punch;document.getElementById('jpunch').style.display='none';}
+
+/* ============================================================
+   LOAD THE DATA
+   Tries to fetch issue-data.json. If opened directly via file://
+   (where fetch is blocked), falls back to window.ISSUE_DATA if a
+   data file was <script>-included, or shows a friendly message.
+   ============================================================ */
+// Data embedded directly — no server needed.
+const ISSUE_DATA = {
+  "meta": {
+    "title": "The Wednesday Weekly",
+    "emoji": "🌟",
+    "titleHTML": "THE<br><span>WEDNESDAY</span><br>WEEKLY",
+    "seriesLine": "Chocolate's Magazine Series",
+    "cadence": "every two weeks",
+    "tagline": "Real news. Deep science. Inspiring people. Fun facts. Entertainment. All in one — by Chocolate 🍫",
+    "date": "May 31, 2026",
+    "editor": "Chocolate",
+    "issueLabel": "Issue #2",
+    "edition": "World Edition",
+    "footerLine": "Part of Chocolate's Magazine Series · Published every two weeks"
+  },
+  "newsMeta": {
+    "kicker": "What happened in the last 2 weeks",
+    "title": "WORLD NEWS",
+    "sub": "8 stories every 8th grader should know · Late May 2026"
+  },
+  "news": [
+    {
+      "color": "blue", "category": "🕊️ Diplomacy", "date": "May 29, 2026",
+      "headline": "US and Iran Close to a Peace Deal — Strait of Hormuz May Reopen",
+      "brief": "After months of tension, the US and Iran are reportedly close to a peace deal awaiting President Trump's approval. The deal would extend the ceasefire for 60 days, reopen the Strait of Hormuz (where 20% of the world's oil flows), and start talks about Iran's nuclear program. If signed, it could bring global oil prices back down — affecting the cost of fuel and everyday goods everywhere.",
+      "link": "https://www.npr.org/2026/05/29/nx-s1-5839319/the-news-roundup-for-may-29-2026",
+      "linkText": "Read on NPR", "tickerText": "🕊️ US–Iran near peace deal"
+    },
+    {
+      "color": "orange", "category": "⚽ Football", "date": "May 19, 2026",
+      "headline": "Arsenal Win the Premier League — Ending a 22-Year Wait!",
+      "brief": "Arsenal were crowned 2025/26 Premier League champions for the first time in 22 years! After finishing runners-up three seasons in a row, the Gunners finally did it — clinching the title with a game to spare after Manchester City drew 1-1 with Bournemouth. Manager Mikel Arteta became the first Arsenal boss to win the league since Arsène Wenger's 'Invincibles' in 2004.",
+      "link": "https://www.premierleague.com/en/news/4662306/arsenal-end-22-year-wait-for-premier-league-title/",
+      "linkText": "Read on Premier League", "tickerText": "⚽ Arsenal win the Premier League"
+    },
+    {
+      "color": "green", "category": "🔬 Science", "date": "May 30, 2026",
+      "headline": "Stanford's Quantum Breakthrough Works WITHOUT Extreme Cooling",
+      "brief": "Scientists at Stanford built a quantum device that works at room temperature using 'twisted light' to link photons and electrons. Normally quantum computers need cooling to nearly absolute zero (colder than space!), which is hugely expensive. This breakthrough could make powerful quantum computers far more practical — potentially revolutionising medicine, weather prediction, and AI.",
+      "link": "https://www.sciencedaily.com/news/top/science/",
+      "linkText": "Read on ScienceDaily", "tickerText": "⚛️ Room-temp quantum breakthrough"
+    },
+    {
+      "color": "red", "category": "🦠 Health", "date": "May 26, 2026",
+      "headline": "WHO Warns Ebola Outbreak in DR Congo Is Spreading Fast",
+      "brief": "The World Health Organization warns that Ebola cases in the Democratic Republic of the Congo are spreading faster than health workers can respond, with suspected deaths reaching 220. WHO chief Dr Tedros called on neighbouring countries to act immediately. Brave doctors and groups like Doctors Without Borders are working on the ground to contain it and treat patients.",
+      "link": "https://www.democracynow.org/2026/5/26/headlines",
+      "linkText": "Read on Democracy Now", "tickerText": "🦠 WHO warns of Ebola in DR Congo"
+    },
+    {
+      "color": "green", "category": "🌡️ Climate", "date": "May 2026",
+      "headline": "Record-Breaking Early Heatwave Bakes Western Europe",
+      "brief": "France and parts of Western Europe are experiencing a 'remarkable' early heatwave, with temperatures hitting 36°C — up to 13°C above normal for May. Scientists say there's now a 91% chance global temperatures will temporarily pass the important 1.5°C warming limit at least once before 2030. A powerful reminder of why climate action matters for your generation.",
+      "link": "https://earth.org/this-week-in-climate-news-may-2026-week-4/",
+      "linkText": "Read on Earth.Org", "tickerText": "🌡️ Record heatwave hits Europe"
+    },
+    {
+      "color": "purple", "category": "🎶 Entertainment", "date": "May 2026",
+      "headline": "BTS, Madonna & Shakira to Headline First-Ever World Cup Halftime Show",
+      "brief": "Football is getting a Super Bowl-style upgrade! It was announced that K-pop superstars BTS, pop icon Madonna, and Colombian singer Shakira will headline the FIRST-EVER FIFA World Cup final halftime show, at MetLife Stadium in New Jersey on July 19, 2026. A historic mix of music and sport expected to draw over a billion viewers.",
+      "link": "https://en.wikipedia.org/wiki/Portal:Current_events/May_2026",
+      "linkText": "Read on Wikipedia", "tickerText": "🎶 BTS, Madonna, Shakira at World Cup"
+    },
+    {
+      "color": "blue", "category": "🕊️ Peace", "date": "May 2026",
+      "headline": "Yemen Signs Biggest Prisoner Swap Deal Since 2014",
+      "brief": "Some genuinely hopeful news: Yemen's internationally-recognised government and the rival Houthi-led council signed a deal in Amman, Jordan to release over 1,600 detainees — the largest prisoner swap in the country's civil war since 2014. It followed 14 weeks of negotiations. For thousands of families torn apart by war, this means long-awaited reunions.",
+      "link": "https://en.wikipedia.org/wiki/Portal:Current_events/May_2026",
+      "linkText": "Read on Wikipedia", "tickerText": "🕊️ Yemen's biggest prisoner swap"
+    },
+    {
+      "color": "green", "category": "🧠 Brain Science", "date": "May 27, 2026",
+      "headline": "New Vitamin K Compounds May Help the Brain Regrow Neurons",
+      "brief": "Researchers in Japan have created powerful new vitamin K-based compounds that may help the brain regenerate lost neurons — the cells that carry information. This early-stage breakthrough could one day change how doctors treat diseases like Alzheimer's and Parkinson's. A great example of how patient, careful science slowly opens doors that once seemed impossible.",
+      "link": "https://www.sciencedaily.com/news/health_medicine/",
+      "linkText": "Read on ScienceDaily", "tickerText": "🧠 Vitamin K may help brains regrow"
+    }
+  ],
+  "science": {
+    "kicker": "Deep knowledge for curious minds",
+    "sub": "The topic every 8th grader must understand right now",
+    "bandTitle": "⚛️ Quantum Computing Explained",
+    "readTime": "~4 min read",
+    "innerKicker": "What every 8th grader must know",
+    "headlineHTML": "What Is a <em>Quantum Computer</em> — and Why Is Everyone So Excited?",
+    "headline": "What Is a Quantum Computer — and Why Is Everyone So Excited?",
+    "deck": "This week Stanford made quantum computers work at room temperature — a huge deal. But what even IS a quantum computer? Let's break down one of the strangest, most powerful ideas in all of science.",
+    "sections": [
+      {"h": "💻 First, How Does a NORMAL Computer Think?", "p": "Every computer you've ever used thinks using 'bits.' A bit is like a tiny switch that's either OFF (0) or ON (1). Everything — this magazine, every game, every video — is just millions of these 0s and 1s. A normal computer checks possibilities one at a time, incredibly fast, but still one at a time."},
+      {"h": "🌀 Now Here's the Quantum Weirdness", "pHTML": "A quantum computer uses 'qubits' instead of bits. Thanks to a bizarre rule of physics called <strong>superposition</strong>, a qubit can be 0 AND 1 at the same time — until you look at it. Imagine a spinning coin that's neither heads nor tails while spinning. This means a quantum computer can explore MANY possibilities at once, instead of one at a time."},
+      {"h": "🔗 The Even Weirder Part: Entanglement", "p": "Qubits can be 'entangled' — two qubits become linked so that changing one instantly affects the other, even far apart. Einstein called this 'spooky action at a distance.' This linking gives quantum computers their power to solve certain problems millions of times faster than any normal computer."},
+      {"h": "🌍 Why Does This Matter for YOUR Future?", "p": "Quantum computers could design life-saving medicines in days instead of years, create unbreakable codes, predict weather and climate far better, and supercharge AI. The catch? They've needed cooling colder than outer space — until this week's Stanford room-temperature breakthrough. Your generation may be the first to use quantum computers in everyday life."}
+    ],
+    "callout": {"h": "💡 The Simple Explanation", "p": "A normal computer searching a giant maze tries one path at a time. A quantum computer explores many paths at once. That's why it can solve certain enormous problems almost magically fast."},
+    "facts": [
+      {"icon": "❄️", "textHTML": "Most quantum computers must be cooled to about <strong>-273°C</strong> — colder than deep space! This week's room-temperature breakthrough is a massive deal."},
+      {"icon": "🔢", "textHTML": "Just <strong>300 qubits</strong> could represent more values than there are atoms in the known universe. That's the power of superposition."},
+      {"icon": "🔐", "textHTML": "Quantum computers could one day crack codes that would take normal computers <strong>billions of years</strong> — which is why scientists race to build 'quantum-safe' security."}
+    ],
+    "vocab": [
+      {"term": "Bit", "def": "The basic unit of a normal computer — either a 0 or a 1."},
+      {"term": "Qubit", "def": "A quantum bit that can be 0 and 1 at the same time."},
+      {"term": "Superposition", "def": "The rule that lets a qubit be in multiple states at once until measured."},
+      {"term": "Entanglement", "def": "When two qubits are linked so one instantly affects the other — Einstein's 'spooky action.'"},
+      {"term": "Absolute zero", "def": "The coldest possible temperature (-273.15°C), where atoms barely move."}
+    ]
+  },
+  "personality": {
+    "avatar": "⚽",
+    "name": "Mikel Arteta",
+    "tagline": "The man who ended Arsenal's 22-year wait",
+    "role": "FOOTBALL MANAGER · FORMER PLAYER · BORN MARCH 26, 1982 · SPAIN",
+    "quote": "I'm a big believer that the harder you work, the luckier you get. You have to earn the right to win.",
+    "facts": [
+      {"label": "From", "value": "San Sebastián, Spain 🇪🇸"},
+      {"label": "Role", "value": "Arsenal Manager"},
+      {"label": "Just Won", "value": "Premier League 2026 🏆"},
+      {"label": "Took Charge", "value": "December 2019"}
+    ],
+    "sections": [
+      {"h": "🌟 Why This Week?", "p": "On May 19, 2026, Mikel Arteta led Arsenal to their first Premier League title in 22 years — becoming the first Arsenal manager to win it since the legendary Arsène Wenger in 2004. After three straight seasons of finishing 2nd (so close, so painful!), he finally got his team over the line. This week London threw them a victory parade."},
+      {"h": "📖 His Story — Patience Through Heartbreak", "p": "Arteta took over a struggling Arsenal in 2019. People doubted him. For years his team improved but kept falling just short — runner-up in 2023, 2024 and 2025. Many managers would have been fired or quit. Instead, Arteta kept refining, kept believing, kept building. He turned a club everyone laughed at into champions. It took six years of patience."},
+      {"h": "🚀 What Makes Him Special", "p": "Arteta is famous for obsessive attention to detail — studying tiny things most people ignore, like exactly how players should stand at a throw-in. He focuses heavily on team spirit and mindset, not just tactics. He believes culture and belief win titles as much as skill. Arsenal kept 19 clean sheets this season — the best defence in the league."},
+      {"h": "💔 The Struggles Nobody Talks About", "p": "Three years as runner-up is a special kind of pain — being second-best in the world, over and over, while everyone questions whether you'll ever win 'the big one.' Critics said Arteta couldn't get over the line. He carried that pressure for years without cracking. His story proves that falling short repeatedly isn't failure — it can be the road to success."}
+    ],
+    "lesson": {"h": "📚 The 8th Grade Takeaway", "pHTML": "Arteta finished 2nd three years running before winning. Imagine getting an A- three times while dreaming of an A+, with everyone saying you'll never make it. The lesson? <strong>Falling just short isn't failing — it's data.</strong> Keep refining, keep believing, and the breakthrough often comes right after you most want to give up. 🏆"}
+  },
+  "wildcard": {
+    "kicker": "Wildcard of the Week",
+    "title": "🤔 Thought Experiment: The Quantum Coin",
+    "bodyHTML": "Here's a brain-bender inspired by this week's quantum news. Imagine a coin that, while spinning, is somehow BOTH heads and tails at once — and only becomes one or the other the instant you catch it and look. Now the wild question: if nobody ever looks at it, is it ever really heads or tails at all? Physicists genuinely argue about this (it's called the 'measurement problem'). Discuss with a friend: does something need to be observed to be 'real'? Even the smartest scientists alive don't fully agree. 🌀"
+  },
+  "fun": {
+    "facts": [
+      {"textHTML": "Just <strong>300 qubits</strong> can hold more information than there are atoms in the entire observable universe. Quantum is wild. ⚛️"},
+      {"textHTML": "<strong>Honey never expires.</strong> Archaeologists found 3,000-year-old honey in Egyptian tombs that was still perfectly edible. 🍯"},
+      {"textHTML": "A day on <strong>Venus is longer than a year on Venus</strong> — it spins slower than it orbits the Sun. 🪐"},
+      {"textHTML": "Arsenal kept <strong>19 clean sheets</strong> this season — meaning in 19 games the other team scored zero. Defence wins titles! ⚽"},
+      {"textHTML": "Your <strong>brain runs on about 20 watts</strong> — less power than a light bulb — yet it's more complex than any computer ever built. 🧠"}
+    ],
+    "recipe": {
+      "name": "Mango Lassi 🥭 — 5-Minute Summer Cooler",
+      "sub": "Perfect for the heatwave! Creamy, sweet, no cooking needed.",
+      "steps": [
+        {"textHTML": "Add <strong>1 cup chopped ripe mango</strong> (or canned mango pulp) to a blender."},
+        {"textHTML": "Add <strong>½ cup plain yogurt</strong> + <strong>½ cup cold milk</strong>."},
+        {"textHTML": "Add <strong>1 tbsp sugar</strong> or honey (taste and adjust) + a pinch of <strong>cardamom</strong>."},
+        {"textHTML": "Blend 30 seconds until smooth and frothy. Add ice cubes if you like it colder. 🧊"},
+        {"textHTML": "Pour into a glass, sprinkle cardamom on top, and enjoy your homemade summer drink! 🥭"}
+      ]
+    },
+    "jokes": [
+      {"setup": "Why did the quantum physicist refuse to make plans?", "punch": "Because every time he looked, the situation changed! ⚛️😂"},
+      {"setup": "Why don't Arsenal fans play hide and seek?", "punch": "Because after 22 years, they finally got found at the top! ⚽😄"},
+      {"setup": "Why don't scientists trust atoms?", "punch": "Because they make up everything! 😂"},
+      {"setup": "What did one qubit say to the other?", "punch": "I'm in two minds about this. 🌀😆"},
+      {"setup": "What do you call a bear with no teeth?", "punch": "A gummy bear! 🐻😂"}
+    ]
+  },
+  "entertainment": {
+    "picks": [
+      {"emoji": "🎬", "category": "Film · Cinema", "title": "Summer Blockbusters", "body": "The big summer movie season is here — superhero sequels and animated adventures hitting cinemas. Perfect holiday watching.", "tag": "#NowShowing"},
+      {"emoji": "🎮", "category": "Gaming", "title": "Split Fiction", "body": "Still the co-op game everyone's playing in 2026. Grab a friend and one copy. Genuinely brilliant.", "tag": "#PlayWithFriends"},
+      {"emoji": "📚", "category": "Book Pick", "title": "A Short History of Nearly Everything", "body": "Bill Bryson explains all of science in a fun, readable way. Perfect if this issue made you curious!", "tag": "#ReadThis"},
+      {"emoji": "🎵", "category": "Music Event", "title": "World Cup Halftime Show", "body": "BTS, Madonna & Shakira headline football's first-ever final halftime show on July 19. Mark your calendar!", "tag": "#July19"}
+    ],
+    "quiz": [
+      {"q": "Which team won the 2025/26 Premier League, ending a 22-year wait?", "opts": ["Manchester City", "Liverpool", "Arsenal", "Chelsea"], "a": 2, "exp": "Arsenal won their first Premier League title in 22 years, with manager Mikel Arteta! 🏆"},
+      {"q": "What makes this week's Stanford quantum breakthrough special?", "opts": ["It's the smallest computer ever", "It works at room temperature instead of needing extreme cooling", "It runs on solar power", "It can never make mistakes"], "a": 1, "exp": "Quantum computers normally need cooling colder than space — Stanford's works at room temperature! ⚛️"},
+      {"q": "In quantum computing, what can a 'qubit' do that a normal bit can't?", "opts": ["Glow in the dark", "Be 0 and 1 at the same time", "Store music", "Connect to WiFi"], "a": 1, "exp": "Thanks to superposition, a qubit can be both 0 and 1 at once — until measured. That's the quantum magic!"},
+      {"q": "Who will headline the first-ever FIFA World Cup final halftime show?", "opts": ["Taylor Swift & Drake", "BTS, Madonna & Shakira", "Coldplay & Beyoncé", "Ed Sheeran & Adele"], "a": 1, "exp": "BTS, Madonna and Shakira perform at MetLife Stadium on July 19, 2026! 🎶"},
+      {"q": "What hopeful deal did the US and Iran get close to this week?", "opts": ["A space mission", "A peace deal reopening the Strait of Hormuz", "A trade fair", "A football match"], "a": 1, "exp": "A peace deal would extend the ceasefire 60 days and reopen the Strait of Hormuz, easing global oil prices. 🕊️"}
+    ],
+    "playlistTitle": "Issue #2 Picks",
+    "playlist": [
+      {"name": "APT.", "artist": "Rosé & Bruno Mars", "duration": "3:00", "emoji": "🌸"},
+      {"name": "Espresso", "artist": "Sabrina Carpenter", "duration": "2:55", "emoji": "☕"},
+      {"name": "Dynamite", "artist": "BTS", "duration": "3:19", "emoji": "💥"},
+      {"name": "Hips Don't Lie", "artist": "Shakira", "duration": "3:38", "emoji": "💃"},
+      {"name": "Birds of a Feather", "artist": "Billie Eilish", "duration": "3:30", "emoji": "🐦"}
+    ]
+  }
+}
+;
+document.addEventListener('DOMContentLoaded', function(){ buildMagazine(ISSUE_DATA); });
+</script>
+</body>
+</html>
